@@ -4,14 +4,17 @@
 #include <iostream>
 #include <string>
 
+//width and height are just the dimensions of the output iamge
 #define WIDTH 256*4
 #define HEIGHT 256*4
+//mod as in modulo, magnitude of a complex numeber
 #define MAX_MOD 2.5
+//how many iterations can you try before saying "good enough"
 #define ITR_MAX 10
 
 
 typedef std::complex<double> cplx_num;
-static const cplx_num complex_const = 1;
+static const cplx_num complex_const = 1; //complex constant for z = z^2+c
 
 class plane {
 public:
@@ -21,6 +24,5 @@ public:
 	void output(std::string& outpath);
 private:
 	int *data;
-	
 	bool single_tile(int i, int j);
 };
