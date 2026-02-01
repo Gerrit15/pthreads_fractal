@@ -2,7 +2,7 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra
 
-#target.. and target again? idk.
+#target.. and target again? idk. makes it work well enough
 TARGET = ./a.out
 TARGET_DEL = a.out
 
