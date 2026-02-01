@@ -5,12 +5,12 @@
 #include <string>
 
 //width and height are just the dimensions of the output iamge
-#define WIDTH 256*4
-#define HEIGHT 256*4
+#define WIDTH 256*32
+#define HEIGHT 256*32
 //mod as in modulo, magnitude of a complex numeber
-#define MAX_MOD 2.5
+#define MAX_MOD 100
 //how many iterations can you try before saying "good enough"
-#define ITR_MAX 10
+#define ITR_MAX 100
 
 
 typedef std::complex<double> cplx_num;
