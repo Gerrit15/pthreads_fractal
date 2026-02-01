@@ -37,7 +37,7 @@ bool plane::single_tile(int i, int j) {
 	cplx_num z = {(4*i)/((float)WIDTH) - 2, (4*j)/((float)HEIGHT) - 2};
 	//std::cout << "Got base z: " << z << std::endl;
 	for(int i = 0; i < ITR_MAX && std::abs(z) < MAX_MOD; ++i) {
-		z = z*z;// + (floatc)2*complex_one;
+		z = z*z;// + complex_const;
 		//std::cout << "\tnew z: " << z << ", |z|: " << abs(z) << std::endl;
 	}
 	if(std::abs(z) >= MAX_MOD) {return false;}

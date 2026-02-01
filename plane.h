@@ -11,7 +11,7 @@
 
 
 typedef std::complex<double> cplx_num;
-static const cplx_num complex_one = 1;
+static const cplx_num complex_const = 1;
 
 class plane {
 public:
