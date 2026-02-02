@@ -8,9 +8,9 @@
 #define WIDTH 256*32
 #define HEIGHT 256*32
 //mod as in modulo, magnitude of a complex numeber
-#define MAX_MOD 100
+#define MAX_MOD 10
 //how many iterations can you try before saying "good enough"
-#define ITR_MAX 100
+#define ITR_MAX 1000
 
 
 typedef std::complex<double> cplx_num;
