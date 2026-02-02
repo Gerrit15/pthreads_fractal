@@ -44,13 +44,14 @@ void plane::simulate() {
 bool plane::single_tile(int i, int j) {
 	//interpolate the (x, y) from the [0, WIDTH] space to [-2, 2], because the
 	//mandelbrot should keep inside that space, so no reason to simulate outside
-	cplx_num z = {(4*i)/((float)WIDTH) - 2, (4*j)/((float)HEIGHT) - 2};
+	cplx_num z = 0;
+	cplx_num z0 = {(4*i)/((float)WIDTH) - 2, (4*j)/((float)HEIGHT) - 2};
 
 	//instead of calling recursively, just set a max iteration depth and make sure it doesn't leav
 	//the known bounds of the set
 	//std::cout << "Starting z: " << z << ", |z|: " << abs(z) << std::endl;
 	for(int i = 0; i < ITR_MAX && std::abs(z) < MAX_MOD; ++i) {
-		z = z*z;// + complex_const;
+		z = z*z+z0;
 		//std::cout << "\tnew z: " << z << ", |z|: " << abs(z) << std::endl;
 	}
 	if(std::abs(z) >= MAX_MOD) {return false;}
