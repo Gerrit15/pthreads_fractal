@@ -5,8 +5,10 @@
 #include <string>
 
 //width and height are just the dimensions of the output iamge
-#define WIDTH 256*8
-#define HEIGHT 256*8
+//30:23 is the ratio x:y
+#define SCALE 128
+#define WIDTH 30*SCALE
+#define HEIGHT 23*SCALE
 //mod as in modulo, magnitude of a complex numeber
 #define MAX_MOD 10
 //how many iterations can you try before saying "good enough"
