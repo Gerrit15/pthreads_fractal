@@ -42,9 +42,9 @@ void plane::simulate() {
 
 //simulates the recursion on each pixel
 bool plane::single_tile(int i, int j) {
-	//interpolate the (x, y) from the [0, WIDTH] space to [-2, 2], because the
-	//mandelbrot should keep inside that space, so no reason to simulate outside
 	cplx_num z = 0;
+	//scaling the pixel into [-2.5, 0.5] x [-1.15, 1.15] because it's a good ratio to display the
+	//set, and the set is inside those bounds
 	cplx_num z0 = {(3*i)/((float)WIDTH) - 2.5, (2.3*j)/((float)HEIGHT) - 1.15};
 
 	//instead of calling recursively, just set a max iteration depth and make sure it doesn't leav
