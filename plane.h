@@ -10,7 +10,7 @@
 #define WIDTH 30*SCALE
 #define HEIGHT 23*SCALE
 //mod as in modulo, magnitude of a complex numeber
-#define MAX_MOD 10
+#define MAX_MOD 2
 //how many iterations can you try before saying "good enough"
 #define ITR_MAX 1000
 
