@@ -48,9 +48,10 @@ bool plane::single_tile(int i, int j) {
 
 	//instead of calling recursively, just set a max iteration depth and make sure it doesn't leav
 	//the known bounds of the set
+	std::cout << "Starting z: " << z << ", |z|: " << abs(z) << std::endl;
 	for(int i = 0; i < ITR_MAX && std::abs(z) < MAX_MOD; ++i) {
 		z = z*z;// + complex_const;
-		//std::cout << "\tnew z: " << z << ", |z|: " << abs(z) << std::endl;
+		std::cout << "\tnew z: " << z << ", |z|: " << abs(z) << std::endl;
 	}
 	if(std::abs(z) >= MAX_MOD) {return false;}
 	return true;
