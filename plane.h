@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <pthread.h>
 
 //width and height are just the dimensions of the output iamge
 //30:23 is the ratio x:y
@@ -13,6 +14,8 @@
 #define MAX_MOD 2
 //how many iterations can you try before saying "good enough"
 #define ITR_MAX 1000
+//how many threads do we make for this application
+#define THREAD_MAX 1
 
 
 typedef std::complex<double> cplx_num;
@@ -24,7 +27,14 @@ public:
 	~plane();
 	void simulate();
 	void output(std::string& outpath);
-private:
+
+	pthread_mutex_t count_lock;
+	int count;
 	int *data;
-	bool single_tile(int i, int j);
+//======old=====
+//private:
+//	bool single_tile(int i, int j);
+//==============
 };
+
+void* single_tile_thread(void* compex_plane);

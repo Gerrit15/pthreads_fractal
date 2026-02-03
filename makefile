@@ -1,6 +1,6 @@
 #compiler & flags
 CXX = g++
-CXXFLAGS = -Wall -Wextra
+CXXFLAGS = -Wall -Wextra -lpthread
 
 #target.. and target again? idk. makes it work well enough
 TARGET = ./a.out
