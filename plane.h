@@ -31,10 +31,6 @@ public:
 	pthread_mutex_t count_lock;
 	int count;
 	int *data;
-//======old=====
-//private:
-//	bool single_tile(int i, int j);
-//==============
 };
 
-void* single_tile_thread(void* compex_plane);
+void* single_pixel(void* compex_plane);
