@@ -8,8 +8,10 @@ It will generate an image in the ppm image format labelled "out.ppm" which can b
 
 ### Roadmap
 - [x] Generate a fractal in ppm
-- [ ] Add pthreads support
+- [x] Add pthreads support
 - [ ] Optimizaiton
+- [ ] Command line arguments
 
-### Issues
-- pthreading, of course, didn't work first try. Seems to be an indexing error?
+### Note on optimization scope
+There are many, many ways to optimize this. Such as not using C++, or only rendering the top half of the fractal and mirroring.
+However, the focus of this project is on threading, so any optimizations will be directed there, such as thread pooling and cache locality.
