@@ -15,7 +15,7 @@
 //how many iterations can you try before saying "good enough"
 #define ITR_MAX 1000
 //how many threads do we make for this application
-#define THREAD_MAX 1
+#define THREAD_MAX 3
 
 
 typedef std::complex<double> cplx_num;

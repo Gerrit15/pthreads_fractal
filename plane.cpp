@@ -82,8 +82,8 @@ void* single_tile_thread(void* complex_plane) {
 		index = cplx_plane->count++;
 		pthread_mutex_unlock(&(cplx_plane->count_lock));
 		if(index >= WIDTH*HEIGHT) {break;}
-		x = index % WIDTH; //index = y*WIDTH+x
-		y = (index-x)/WIDTH;
+		x = index % (WIDTH); //index = y*WIDTH+x
+		y = (index-x)/(WIDTH); //note: due to the way width and height are determined, the parenthesis are necessesary!!
 
 		z = 0;
 		z0 = {(3*x)/((float)WIDTH) - 2.5, (2.3*y)/((float)HEIGHT) - 1.15};
