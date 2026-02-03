@@ -10,3 +10,6 @@ It will generate an image in the ppm image format labelled "out.ppm" which can b
 - [x] Generate a fractal in ppm
 - [ ] Add pthreads support
 - [ ] Optimizaiton
+
+### Issues
+- pthreading, of course, didn't work first try. Seems to be an indexing error?
