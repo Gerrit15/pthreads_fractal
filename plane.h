@@ -10,7 +10,6 @@
 #include "preferences.h"
 
 typedef std::complex<double> cplx_num;
-static const cplx_num complex_const = 1; //complex constant for z = z^2+c
 
 class plane {
 public:
