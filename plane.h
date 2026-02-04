@@ -5,6 +5,8 @@
 #include <string>
 #include <pthread.h>
 
+#include "preferences.h"
+
 //width and height are just the dimensions of the output iamge
 //30:23 is the ratio x:y
 #define SCALE 64
@@ -23,16 +25,17 @@ static const cplx_num complex_const = 1; //complex constant for z = z^2+c
 
 class plane {
 public:
-	plane();
+	plane(int argc, char* argv[]);
 	~plane();
 	void simulate();
-	void output(std::string& outpath);
+	void output();
 	//count is the current lead 'index' of the threads-- when a thread finishes 
 	//it'll go here (thu the mutex, in a sense) and see that "count" is at x, so it'll start
 	//operations again at plane->data[x], up to plane->data[x+WIDTH-1] (inclusive)
 	pthread_mutex_t count_lock;
 	int count; 
 	int *data;
+	preferences pref;
 };
 
 void* single_pixel(void* compex_plane);
