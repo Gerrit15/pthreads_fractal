@@ -10,8 +10,9 @@ It will generate an image in the ppm image format labelled "out.ppm" which can b
 - [x] Generate a fractal in ppm
 - [x] Add pthreads support
 - [x] Optimizaiton
-- [ ] Command line arguments
+- [x] Command line arguments
 - [ ] Coloring
+- [ ] More optimization
 
 ### Note on optimization scope
 There are many, many ways to optimize this. Such as not using C++, or only rendering the top half of the fractal and mirroring.
