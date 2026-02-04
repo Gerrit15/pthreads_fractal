@@ -1,6 +1,17 @@
 #ifndef PREF_HEADER
 #define PREF_HEADER
 #include <string>
+
+/*
+* =======Options=======
+* -s	the scale.
+* -t	how many threads
+* -o	outfile path
+* -i	maximum iteration
+* -h	displays help
+* =====================
+*/
+
 typedef struct {
 	int width;
 	int height;
@@ -10,5 +21,5 @@ typedef struct {
 	std::string outfile;
 } preferences;
 
-void load_prefs(preferences& pref, int argc, char* argv[]);
+int load_prefs(preferences& pref, int argc, char* argv[]);
 #endif
