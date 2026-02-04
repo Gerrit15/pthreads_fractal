@@ -27,9 +27,11 @@ public:
 	~plane();
 	void simulate();
 	void output(std::string& outpath);
-
+	//count is the current lead 'index' of the threads-- when a thread finishes 
+	//it'll go here (thu the mutex, in a sense) and see that "count" is at x, so it'll start
+	//operations again at plane->data[x], up to plane->data[x+WIDTH-1] (inclusive)
 	pthread_mutex_t count_lock;
-	int count;
+	int count; 
 	int *data;
 };
 

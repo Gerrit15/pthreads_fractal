@@ -13,12 +13,14 @@ plane::~plane() {
 
 //runs the data on each item in our plane
 void plane::simulate() {
-	pthread_t threads[THREAD_MAX];
+	pthread_t threads[THREAD_MAX]; //thread pool setup-- they'll grab jobs from the "queue" iteratively
 	int thread_ret[THREAD_MAX];
 	for(int i = 0; i < THREAD_MAX; ++i) {thread_ret[i] = pthread_create(threads+i, NULL, single_pixel, (void*) this);}
+	//join the threads. Blocks a little weird, hypothetically, potentially, but 
+	//doesn't really matter that much in the scope of things
 	for(int i = 0; i < THREAD_MAX; ++i) {
 		pthread_join(threads[i], NULL);
-		if(thread_ret[i] != 0) {std::cerr << "Thread " << i << " returned with status " << thread_ret[i] << std::endl;}
+		if(thread_ret[i] != 0) {std::cerr << "Thread " << i << " returned with status " << thread_ret[i] << std::endl;} //didn't really impl this but safe than sorry
 	}
 }
 
@@ -51,7 +53,7 @@ void* single_pixel(void* complex_plane) {
 	while(1) {
 		pthread_mutex_lock(&(cplx_plane->count_lock));
 		index = cplx_plane->count;
-		cplx_plane->count += WIDTH;
+		cplx_plane->count += WIDTH; //basically reserving the entire row for this thread. less mutex locks
 		pthread_mutex_unlock(&(cplx_plane->count_lock));
 		if(index >= WIDTH*HEIGHT) {break;}
 		cap = index+WIDTH;
@@ -70,5 +72,5 @@ void* single_pixel(void* complex_plane) {
 			cplx_plane->data[index] = (std::abs(z) < MAX_MOD);
 		}
 	}
-	return NULL;
+	return NULL; //don't really need it to return anything
 }
