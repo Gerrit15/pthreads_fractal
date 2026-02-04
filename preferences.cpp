@@ -25,10 +25,10 @@ int load_prefs(preferences &pref, int argc, char* argv[]) {
 	for(int i = argc - 1; i >= 0; --i) {
 		if(strcmp(argv[i], "-h") == 0) {
 			std::cout << "=======Options=======" << std::endl
-								<< "-s\tthe scale." << std::endl
-								<< "-t\thow many threads" << std::endl
-								<< "-o\toutfile path" << std::endl
-								<< "-i\tmaximum iteration" << std::endl
+								<< "-s\tthe scale.\tDefault: 32" << std::endl
+								<< "-t\thow many threads\tDefault: 5" << std::endl
+								<< "-o\toutfile path\tDefault: out.ppm" << std::endl
+								<< "-i\tmaximum iteration\tDefault: 100" << std::endl
 								<< "-h\tdisplays help" << std::endl
 								<< "=====================" << std::endl;
 			return 1;
