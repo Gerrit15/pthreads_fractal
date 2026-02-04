@@ -1,3 +1,5 @@
+#ifndef PLANE_HEADER
+#define PLANE_HEADER
 #include <cmath>
 #include <complex>
 #include <fstream>
@@ -39,3 +41,4 @@ public:
 };
 
 void* single_pixel(void* compex_plane);
+#endif

@@ -1,3 +1,5 @@
+#ifndef PREF_HEADER
+#define PREF_HEADER
 #include <string>
 typedef struct {
 	int width;
@@ -9,3 +11,4 @@ typedef struct {
 } preferences;
 
 void load_prefs(preferences& pref, int argc, char* argv[]);
+#endif
