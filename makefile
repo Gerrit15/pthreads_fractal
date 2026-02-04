@@ -28,4 +28,4 @@ $(TARGET): $(OBJS)
 
 #clean rule to remove generated files
 clean:
-	rm -f $(TARGET_DEL) $(OBJS) out.ppm callgrind.*
+	rm -f $(TARGET_DEL) $(OBJS) *.ppm callgrind.*
