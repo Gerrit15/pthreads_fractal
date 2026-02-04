@@ -1,7 +1,7 @@
 #include "plane.h"
 
 plane::plane(int argc, char* argv[]) {
-	load_prefs(this->pref, argc, argv);
+	if(load_prefs(this->pref, argc, argv)) {exit(1);}
 	//we generally make board way too big for the stack, so to the heap we go
 	this->data = new int[this->pref.width*this->pref.height];
 	this->count_lock = PTHREAD_MUTEX_INITIALIZER;

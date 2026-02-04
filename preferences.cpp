@@ -29,8 +29,9 @@ int load_prefs(preferences &pref, int argc, char* argv[]) {
 								<< "-t\thow many threads" << std::endl
 								<< "-o\toutfile path" << std::endl
 								<< "-i\tmaximum iteration" << std::endl
-								<< "-h\tdisplays help" << std::endl;
-			return 0;
+								<< "-h\tdisplays help" << std::endl
+								<< "=====================" << std::endl;
+			return 1;
 		}
 		if(strcmp(argv[i], "-s") == 0) {
 			if(i+1 < argc) {
