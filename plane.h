@@ -7,7 +7,7 @@
 
 //width and height are just the dimensions of the output iamge
 //30:23 is the ratio x:y
-#define SCALE 8
+#define SCALE 64
 #define WIDTH 30*SCALE
 #define HEIGHT 23*SCALE
 //mod as in modulo, magnitude of a complex numeber

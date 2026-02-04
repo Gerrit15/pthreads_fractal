@@ -45,25 +45,30 @@ void* single_pixel(void* complex_plane) {
 	//yes I know it's a bad naming convention.
 	plane* cplx_plane = (plane*)complex_plane;
 	int index;
+	int cap;
 	int x, y;
 	cplx_num z, z0;
 	while(1) {
 		pthread_mutex_lock(&(cplx_plane->count_lock));
-		index = cplx_plane->count++;
+		index = cplx_plane->count;
+		cplx_plane->count += WIDTH;
 		pthread_mutex_unlock(&(cplx_plane->count_lock));
 		if(index >= WIDTH*HEIGHT) {break;}
-		x = index % (WIDTH); //index = y*WIDTH+x
-		y = (index-x)/(WIDTH); //note: due to the way width and height are determined, the parenthesis are necessesary!!
+		cap = index+WIDTH;
+		for(; index < cap; ++index) {
+			x = index % (WIDTH); //index = y*WIDTH+x
+			y = (index-x)/(WIDTH); //note: due to the way width and height are determined, the parenthesis are necessesary!!
 
-		z = 0;
-		z0 = {(3*x)/((float)WIDTH) - 2.5, (2.3*y)/((float)HEIGHT) - 1.15};
+			z = 0;
+			z0 = {(3*x)/((float)WIDTH) - 2.5, (2.3*y)/((float)HEIGHT) - 1.15};
 
-		//instead of calling recursively, just set a max iteration depth
-		//and make sure it doesn't leave the known bounds of the set
-		for(int i = 0; i < ITR_MAX && std::abs(z) < MAX_MOD; ++i) {z = z*z+z0;}
+			//instead of calling recursively, just set a max iteration depth
+			//and make sure it doesn't leave the known bounds of the set
+			for(int i = 0; i < ITR_MAX && std::abs(z) < MAX_MOD; ++i) {z = z*z+z0;}
 
-		//good news! no possible race condition, index is unique to this thread
-		cplx_plane->data[index] = (std::abs(z) < MAX_MOD);
+			//good news! no possible race condition, index is unique to this thread
+			cplx_plane->data[index] = (std::abs(z) < MAX_MOD);
+		}
 	}
 	return NULL;
 }
