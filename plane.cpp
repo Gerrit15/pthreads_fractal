@@ -67,10 +67,10 @@ void* single_pixel(void* complex_plane) {
 
 			//instead of calling recursively, just set a max iteration depth
 			//and make sure it doesn't leave the known bounds of the set
-			for(int i = 0; i < ITR_MAX && std::abs(z) < MAX_MOD; ++i) {z = z*z+z0;}
+			for(int i = 0; i < cplx_plane->pref.max_iteration && std::abs(z) < cplx_plane->pref.max_mod; ++i) {z = z*z+z0;}
 
 			//good news! no possible race condition, index is unique to this thread
-			cplx_plane->data[index] = (std::abs(z) < MAX_MOD);
+			cplx_plane->data[index] = (std::abs(z) < cplx_plane->pref.max_mod);
 		}
 	}
 	return NULL; //don't really need it to return anything

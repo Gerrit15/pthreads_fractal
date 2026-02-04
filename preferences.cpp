@@ -5,5 +5,6 @@ void load_prefs(preferences &pref, int argc, char* argv[]) {
 	pref.height = 23*64;
 	pref.max_iteration = 1000;
 	pref.max_threads = 5;
+	pref.max_mod = 2;
 	pref.outfile = "out.ppm";
 }
