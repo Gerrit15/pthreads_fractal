@@ -34,10 +34,10 @@ void plane::output() {
 	}
 
 	//ppm file format is "P[1/2/3] \n [size x] [size y]\n [pixel data] [pixel data]..."
-	outfile << "P1\n" << WIDTH << " " << HEIGHT << "\n";
-	for(int i = 0; i < HEIGHT; ++i) {
-		for(int j = 0; j < WIDTH; ++j) {
-			outfile << this->data[i*WIDTH + j] << " ";
+	outfile << "P1\n" << this->pref.width << " " << this->pref.height << "\n";
+	for(int i = 0; i < this->pref.height; ++i) {
+		for(int j = 0; j < this->pref.width; ++j) {
+			outfile << this->data[i*this->pref.width+ j] << " ";
 		}
 		outfile << "\n"; //ppm doesn't care if it's newline or space to deliminate pixel data
 	}
