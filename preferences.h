@@ -1,6 +1,10 @@
 #ifndef PREF_HEADER
 #define PREF_HEADER
 #include <string>
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
+#include <string>
 
 /*
 * =======Options=======
