@@ -54,16 +54,16 @@ void* single_pixel(void* complex_plane) {
 	while(1) {
 		pthread_mutex_lock(&(cplx_plane->count_lock));
 		index = cplx_plane->count;
-		cplx_plane->count += WIDTH; //basically reserving the entire row for this thread. less mutex locks
+		cplx_plane->count += cplx_plane->pref.width; //basically reserving the entire row for this thread. less mutex locks
 		pthread_mutex_unlock(&(cplx_plane->count_lock));
-		if(index >= WIDTH*HEIGHT) {break;}
-		cap = index+WIDTH;
+		if(index >= cplx_plane->pref.width*cplx_plane->pref.height) {break;}
+		cap = index+cplx_plane->pref.width;
 		for(; index < cap; ++index) {
-			x = index % (WIDTH); //index = y*WIDTH+x
-			y = (index-x)/(WIDTH); //note: due to the way width and height are determined, the parenthesis are necessesary!!
+			x = index % (cplx_plane->pref.width); //index = y*WIDTH+x
+			y = (index-x)/(cplx_plane->pref.width); //note: due to the way width and height are determined, the parenthesis are necessesary!!
 
 			z = 0;
-			z0 = {(3*x)/((float)WIDTH) - 2.5, (2.3*y)/((float)HEIGHT) - 1.15};
+			z0 = {(3*x)/((float)cplx_plane->pref.width) - 2.5, (2.3*y)/((float)cplx_plane->pref.height) - 1.15};
 
 			//instead of calling recursively, just set a max iteration depth
 			//and make sure it doesn't leave the known bounds of the set
