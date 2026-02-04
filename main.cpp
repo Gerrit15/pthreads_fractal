@@ -1,8 +1,8 @@
 #include "plane.h"
 
-int main() {
+int main(int argc, char* argv[]) {
 	std::string outpath = "out.ppm";
-	plane complex_grid;
+	plane complex_grid(argc, argv);
 	complex_grid.simulate();
-	complex_grid.output(outpath);
+	complex_grid.output();
 }

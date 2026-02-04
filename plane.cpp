@@ -1,8 +1,9 @@
 #include "plane.h"
 
-plane::plane() {
+plane::plane(int argc, char* argv[]) {
+	load_prefs(this->pref, argc, argv);
 	//we generally make board way too big for the stack, so to the heap we go
-	this->data = new int[WIDTH*HEIGHT];
+	this->data = new int[this->pref.width*this->pref.height];
 	this->count_lock = PTHREAD_MUTEX_INITIALIZER;
 	this->count = 0;
 }
@@ -13,22 +14,22 @@ plane::~plane() {
 
 //runs the data on each item in our plane
 void plane::simulate() {
-	pthread_t threads[THREAD_MAX]; //thread pool setup-- they'll grab jobs from the "queue" iteratively
-	int thread_ret[THREAD_MAX];
-	for(int i = 0; i < THREAD_MAX; ++i) {thread_ret[i] = pthread_create(threads+i, NULL, single_pixel, (void*) this);}
+	pthread_t threads[this->pref.max_threads]; //thread pool setup-- they'll grab jobs from the "queue" iteratively
+	int thread_ret[this->pref.max_threads];
+	for(int i = 0; i < this->pref.max_threads; ++i) {thread_ret[i] = pthread_create(threads+i, NULL, single_pixel, (void*) this);}
 	//join the threads. Blocks a little weird, hypothetically, potentially, but 
 	//doesn't really matter that much in the scope of things
-	for(int i = 0; i < THREAD_MAX; ++i) {
+	for(int i = 0; i < this->pref.max_threads; ++i) {
 		pthread_join(threads[i], NULL);
 		if(thread_ret[i] != 0) {std::cerr << "Thread " << i << " returned with status " << thread_ret[i] << std::endl;} //didn't really impl this but safe than sorry
 	}
 }
 
 //generatic output to a file function.
-void plane::output(std::string& outpath) {
-	std::ofstream outfile(outpath);
+void plane::output() {
+	std::ofstream outfile(this->pref.outfile);
 	if(!outfile.is_open()) {
-		std::cerr << "Failed to open" << outpath << std::endl;
+		std::cerr << "Failed to open" << this->pref.outfile << std::endl;
 		return;
 	}
 
