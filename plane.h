@@ -1,15 +1,12 @@
 #ifndef PLANE_HEADER
 #define PLANE_HEADER
 #include <cmath>
-#include <complex>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <pthread.h>
 
 #include "preferences.h"
-
-typedef std::complex<double> cplx_num;
 
 class plane {
 public:
