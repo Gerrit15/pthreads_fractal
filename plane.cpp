@@ -34,12 +34,11 @@ void plane::output() {
 	}
 
 	//ppm file format is "P[1/2/3] \n [size x] [size y]\n [pixel data] [pixel data]..."
-	outfile << "P1\n" << this->pref.width << " " << this->pref.height << "\n";
+	outfile << "P3\n" << this->pref.width << " " << this->pref.height << "\n255" << "\n";
 	for(int i = 0; i < this->pref.height; ++i) {
 		for(int j = 0; j < this->pref.width; ++j) {
-			outfile << this->data[i*this->pref.width+ j] << " ";
+			outfile << "0 " << this->data[i*this->pref.width+j] << " 0" << std::endl;
 		}
-		outfile << "\n"; //ppm doesn't care if it's newline or space to deliminate pixel data
 	}
 	outfile.close();
 }
@@ -49,7 +48,7 @@ void* single_pixel(void* complex_plane) {
 	plane* cplx_plane = (plane*)complex_plane;
 	int index;
 	int cap;
-	int x, y;
+	int x, y, i;
 	cplx_num z, z0;
 	while(1) {
 		pthread_mutex_lock(&(cplx_plane->count_lock));
@@ -67,10 +66,11 @@ void* single_pixel(void* complex_plane) {
 
 			//instead of calling recursively, just set a max iteration depth
 			//and make sure it doesn't leave the known bounds of the set
-			for(int i = 0; i < cplx_plane->pref.max_iteration && std::abs(z) < cplx_plane->pref.max_mod; ++i) {z = z*z+z0;}
+			for(i = 0; i < cplx_plane->pref.max_iteration && std::abs(z) < cplx_plane->pref.max_mod; ++i) {z = z*z+z0;}
 
 			//good news! no possible race condition, index is unique to this thread
-			cplx_plane->data[index] = (std::abs(z) < cplx_plane->pref.max_mod);
+			;
+			cplx_plane->data[index] = 172*(i/(float)cplx_plane->pref.max_iteration);
 		}
 	}
 	return NULL; //don't really need it to return anything
