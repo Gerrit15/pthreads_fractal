@@ -52,6 +52,11 @@ void* single_pixel(void* complex_plane) {
 	//cplx_num z, z0;
 	double z[2], z0[2];
 	double real_z_sq, imag_z_sq;
+	int preamble_size = cplx_plane->preamble_size;
+	int width = cplx_plane->pref.width;
+	int height = cplx_plane->pref.height;
+	int widthheight = width*height;
+	int tmp_num;
 	while(1) {
 		pthread_mutex_lock(&(cplx_plane->count_lock));
 		index = cplx_plane->count;
@@ -60,13 +65,13 @@ void* single_pixel(void* complex_plane) {
 		if(index >= cplx_plane->pref.width*cplx_plane->pref.height) {break;}
 		cap = index+cplx_plane->pref.width;
 		for(; index < cap; ++index) {
-			x = index % (cplx_plane->pref.width); //index = y*WIDTH+x
-			y = (index-x)/(cplx_plane->pref.width); //note: due to the way width and height are determined, the parenthesis are necessesary!!
+			x = index % (width); //index = y*WIDTH+x
+			y = (index-x)/(width); //note: due to the way width and height are determined, the parenthesis are necessesary!!
 
 			z[0] = 0;
 			z[1] = 0;
-			z0[0] = (3*x)/((float)cplx_plane->pref.width) - 2.5;
-			z0[1] = (2.3*y)/((float)cplx_plane->pref.height) - 1.15;
+			z0[0] = (3*x)/((float)width) - 2.5;
+			z0[1] = (2.3*y)/((float)height) - 1.15;
 
 			//instead of calling recursively, just set a max iteration depth
 			//and make sure it doesn't leave the known bounds of the set
