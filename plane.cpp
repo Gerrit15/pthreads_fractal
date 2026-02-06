@@ -52,18 +52,17 @@ void* single_pixel(void* complex_plane) {
 	//cplx_num z, z0;
 	double z[2], z0[2];
 	double real_z_sq, imag_z_sq;
-	int preamble_size = cplx_plane->preamble_size;
 	int width = cplx_plane->pref.width;
 	int height = cplx_plane->pref.height;
 	int widthheight = width*height;
-	int tmp_num;
+	int max_itr = cplx_plane->pref.max_iteration;
 	while(1) {
 		pthread_mutex_lock(&(cplx_plane->count_lock));
 		index = cplx_plane->count;
-		cplx_plane->count += cplx_plane->pref.width; //basically reserving the entire row for this thread. less mutex locks
+		cplx_plane->count += width; //basically reserving the entire row for this thread. less mutex locks
 		pthread_mutex_unlock(&(cplx_plane->count_lock));
-		if(index >= cplx_plane->pref.width*cplx_plane->pref.height) {break;}
-		cap = index+cplx_plane->pref.width;
+		if(index >= widthheight) {break;}
+		cap = index+width;
 		for(; index < cap; ++index) {
 			x = index % (width); //index = y*WIDTH+x
 			y = (index-x)/(width); //note: due to the way width and height are determined, the parenthesis are necessesary!!
@@ -75,7 +74,7 @@ void* single_pixel(void* complex_plane) {
 
 			//instead of calling recursively, just set a max iteration depth
 			//and make sure it doesn't leave the known bounds of the set
-			for(i = 0; i < cplx_plane->pref.max_iteration; ++i) {
+			for(i = 0; i < max_itr; ++i) {
 				real_z_sq = z[0]*z[0];
 				imag_z_sq = z[1]*z[1];
 				if(real_z_sq + imag_z_sq >= 4.0) {break;}
@@ -84,7 +83,7 @@ void* single_pixel(void* complex_plane) {
 			}
 
 			//good news! no possible race condition, index is unique to this thread
-			cplx_plane->data[index] = 172*(i/(float)cplx_plane->pref.max_iteration);
+			cplx_plane->data[index] = 172*(i/(float)max_itr);
 		}
 	}
 	return NULL; //don't really need it to return anything
