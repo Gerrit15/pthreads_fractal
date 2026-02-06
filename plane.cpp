@@ -37,7 +37,7 @@ void plane::output() {
 	outfile << "P3\n" << this->pref.width << " " << this->pref.height << "\n255" << "\n";
 	for(int i = 0; i < this->pref.height; ++i) {
 		for(int j = 0; j < this->pref.width; ++j) {
-			outfile << "0 " << this->data[i*this->pref.width+j] << " 0" << std::endl;
+			outfile << "0 " << this->data[i*this->pref.width+j] << " 0\n";
 		}
 	}
 	outfile.close();
@@ -77,7 +77,6 @@ void* single_pixel(void* complex_plane) {
 			}
 
 			//good news! no possible race condition, index is unique to this thread
-			;
 			cplx_plane->data[index] = 172*(i/(float)cplx_plane->pref.max_iteration);
 		}
 	}
