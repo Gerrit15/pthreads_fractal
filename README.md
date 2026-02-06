@@ -5,13 +5,21 @@ the position of the pixel), outputting to a ppx. An excuse to demonstrate pthrea
 ### Usage
 As of now, image dimensions and other assorted settings are found inside the plane.h file as macro constants.
 It will generate an image in the ppm image format labelled "out.ppm" which can be viewed with a regular image viewer.
+Command line arguments: 
+- -s, the scale. defaults to 32. Dimensions of the image will be 30\*scale x 23\*scale
+- -t, the number of threads. Defaults to 5
+- -o, the outfile path. The name of the image to be generated. Defaults to "out.ppm"
+- -i, the maximum iteration depth. How many 'recursions' can we do before we call it. Defaults to 100
+- -h, displays help
+
 
 ### Roadmap
 - [x] Generate a fractal in ppm
 - [x] Add pthreads support
 - [x] Optimizaiton
 - [x] Command line arguments
-- [ ] Coloring
+- [x] Coloring
+- [ ] Anything but png
 - [ ] More optimization
 
 ### Note on optimization scope
