@@ -49,7 +49,8 @@ void* single_pixel(void* complex_plane) {
 	int index;
 	int cap;
 	int x, y, i;
-	cplx_num z, z0;
+	//cplx_num z, z0;
+	double z[2], z0[2];
 	while(1) {
 		pthread_mutex_lock(&(cplx_plane->count_lock));
 		index = cplx_plane->count;
@@ -61,12 +62,19 @@ void* single_pixel(void* complex_plane) {
 			x = index % (cplx_plane->pref.width); //index = y*WIDTH+x
 			y = (index-x)/(cplx_plane->pref.width); //note: due to the way width and height are determined, the parenthesis are necessesary!!
 
-			z = 0;
-			z0 = {(3*x)/((float)cplx_plane->pref.width) - 2.5, (2.3*y)/((float)cplx_plane->pref.height) - 1.15};
+			z[0] = 0;
+			z[1] = 0;
+			z0[0] = (3*x)/((float)cplx_plane->pref.width) - 2.5;
+			z0[1] = (2.3*y)/((float)cplx_plane->pref.height) - 1.15;
 
 			//instead of calling recursively, just set a max iteration depth
 			//and make sure it doesn't leave the known bounds of the set
-			for(i = 0; i < cplx_plane->pref.max_iteration && std::abs(z) < cplx_plane->pref.max_mod; ++i) {z = z*z+z0;}
+			for(i = 0; i < cplx_plane->pref.max_iteration && z[0]*z[0]+z[1]*z[1] < 4.0; ++i) {
+				//(a+bi)(a+bi) = a^2-b^2+2abi ==> Re(z^2) = a^2-b^2, Im(z^2) = 2ab
+				//(a+bi)(a+bi)+c+di = a^2-b^2+c+2abi+di ==> Re(z^2) = a^2-b^2+c, Im(z^2) = 2ab+d
+				z[0] = z[0]*z[0]-z[1]*z[1]+z0[0];
+				z[1] = 2*z[0]*z[1]+z0[1];
+			}
 
 			//good news! no possible race condition, index is unique to this thread
 			;
