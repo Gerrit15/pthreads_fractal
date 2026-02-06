@@ -19,7 +19,6 @@ Command line arguments:
 - [x] Optimizaiton
 - [x] Command line arguments
 - [x] Coloring
-- [ ] Anything but png
 - [ ] More optimization
 
 ### Note on optimization scope
