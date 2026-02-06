@@ -51,7 +51,7 @@ void* single_pixel(void* complex_plane) {
 	int x, y, i;
 	//cplx_num z, z0;
 	double z[2], z0[2];
-	double tmp;
+	double real_z_sq, imag_z_sq;
 	while(1) {
 		pthread_mutex_lock(&(cplx_plane->count_lock));
 		index = cplx_plane->count;
@@ -70,12 +70,12 @@ void* single_pixel(void* complex_plane) {
 
 			//instead of calling recursively, just set a max iteration depth
 			//and make sure it doesn't leave the known bounds of the set
-			for(i = 0; i < cplx_plane->pref.max_iteration && z[0]*z[0]+z[1]*z[1] < 4.0; ++i) {
-				//(a+bi)(a+bi) = a^2-b^2+2abi ==> Re(z^2) = a^2-b^2, Im(z^2) = 2ab
-				//(a+bi)(a+bi)+c+di = a^2-b^2+c+2abi+di ==> Re(z^2) = a^2-b^2+c, Im(z^2) = 2ab+d
-				tmp = z[0];
-				z[0] = z[0]*z[0]-z[1]*z[1]+z0[0];
-				z[1] = 2*tmp*z[1]+z0[1];
+			for(i = 0; i < cplx_plane->pref.max_iteration; ++i) {
+				real_z_sq = z[0]*z[0];
+				imag_z_sq = z[1]*z[1];
+				if(real_z_sq + imag_z_sq >= 4.0) {break;}
+				z[1] = 2*z[0]*z[1]+z0[1];
+				z[0] = real_z_sq-imag_z_sq+z0[0];
 			}
 
 			//good news! no possible race condition, index is unique to this thread

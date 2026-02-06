@@ -21,7 +21,6 @@ typedef struct {
 	int height;
 	int max_iteration;
 	int max_threads;
-	int max_mod;
 	std::string outfile;
 } preferences;
 
