@@ -3,8 +3,6 @@ Relatively simple example of the mandelbrot set, using the formula z = z^2+z0 (w
 the position of the pixel), outputting to a ppx. An excuse to demonstrate pthreading knowledge.
 
 ### Usage
-As of now, image dimensions and other assorted settings are found inside the plane.h file as macro constants.
-It will generate an image in the ppm image format labelled "out.ppm" which can be viewed with a regular image viewer.
 Command line arguments: 
 - -s, the scale. defaults to 32. Dimensions of the image will be 30\*scale x 23\*scale
 - -t, the number of threads. Defaults to 5
