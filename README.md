@@ -10,15 +10,6 @@ Command line arguments:
 - -i, the maximum iteration depth. How many 'recursions' can we do before we call it. Defaults to 100
 - -h, displays help
 
-
-### Roadmap
-- [x] Generate a fractal in ppm
-- [x] Add pthreads support
-- [x] Optimizaiton
-- [x] Command line arguments
-- [x] Coloring
-- [ ] More optimization
-
 ### Note on optimization scope
 There are many, many ways to optimize this. Such as not using C++, or only rendering the top half of the fractal and mirroring.
 However, the focus of this project is on threading, so any optimizations will be directed there, such as thread pooling and cache locality.
